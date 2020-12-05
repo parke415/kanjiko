@@ -4,12 +4,8 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Kanjiko' });
+  res.render('index');
 });
-
-// router.get('/', function(req, res, next) {
-//   res.redirect('/characters');
-// });
 
 // Login with Google
 router.get('/auth/google', passport.authenticate(
@@ -20,15 +16,15 @@ router.get('/auth/google', passport.authenticate(
 router.get('/oauth2callback', passport.authenticate(
   'google',
   {
-    successRedirect: '/movies',
-    failureMessage: '/movies'
+    successRedirect: '/characters',
+    failureMessage: '/'
   }
 ));
 
 // Logout
 router.get('/logout', function(req, res) {
   req.logout();
-  res.redirect('/movies');
+  res.redirect('/');
 });
 
 module.exports = router;
