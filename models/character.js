@@ -14,7 +14,7 @@ const characterSchema = new Schema({
   learned: {type: Boolean, default: false},
   semantic: [{type: Schema.Types.ObjectId, ref: 'Character'}],
   phonetic: [{type: Schema.Types.ObjectId, ref: 'Character'}],
-  strokes: {type: Number, min: 1, max: 0, required: true},
+  strokes: {type: Number, min: 1, max: 99, required: true},
   variants: {type: String, default: 'n/a'},
   meaning: {type: String, default: 'n/a'},
   readings: [readingSchema],
