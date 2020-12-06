@@ -1,8 +1,9 @@
 <%- include('../partials/header') %>
-  <h1><span <%- learnedChars === characters.length ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= learnedChars %>/<%= characters.length %></span> Characters Learned</h1>
-  <div class="char" style="border-color: #dddddd; background-color: #eeeeee;"><a href="/characters/new">＋</a></div>
-  <% characters.sort((a, b) => a.strokes - b.strokes) %>
+  <h1><%= title %></h1>
+  <h2>(<span <%- learnedChars === characters.length ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= learnedChars %>/<%= characters.length %> LEARNED</span>)</h2>
+  <% characters.sort((a, b) => a.strokes - b.strokes); %>
   <% characters.forEach(character => { %>
   <div class="char" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><a href="/characters/<%= character.id %>"><%= character.glyph %></a></div>
   <% }); %>
+  <div class="char" style="border-color: #dddddd; background-color: #eeeeee;"><a href="/characters/new">＋</a></div>
 <%- include('../partials/footer') %>

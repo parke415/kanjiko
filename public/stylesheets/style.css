@@ -1,7 +1,33 @@
 body {
+  padding: 50px;
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.entry {
   text-align: center;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#cover {
+  font: 150px "Times";
+}
+
+.login {
+  font-size: 32px;
+  color: blue;
+}
+
+.login img {
+  width: 5%;
+}
+
+nav, h1, h2 {
+  text-align: center; 
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 24px;
 }
 
 a {
@@ -17,4 +43,10 @@ a {
   background-color: #eeeeee;
   padding: 0 5px 5px 5px;
   margin: 3px;
+}
+
+.detail {
+  font-size: 12px;
+  color: #777777;
+  font-style: italic;
 }
