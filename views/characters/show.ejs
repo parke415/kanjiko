@@ -3,14 +3,48 @@
 <div class="char" id="featured" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><%= character.glyph %></div>
 <br>
 <br>
+<div>Strokes: <%= character.strokes %></div>
+<% if (character.variants) { %>
+<div>Variant<%= character.variants.length > 1 ? 's' : '' %>: <%= character.variants.split('').join(' / ') %></div>
+<% }; %>
+<% character.meanings.split('; ').forEach((meaning, idx) => { %>
+<div>Meaning<%= character.meanings.split('; ').length > 1 ? ` #${idx+1}` : '' %>: <%= meaning %></div>
+<% }); %>
+<div>Readings:</div>
+<ul>
+  <% character.readings.forEach(reading => { %>
+  <li><%= reading.sound %><span class="detail"><%= reading.definition ? ` (#${reading.definition})` : '' %></span> <a href="/characters/<%= character._id %>/readings/<%= reading._id %>/delete"><span style="color: #dddddd;">Ｘ</span></a><br><span class="detail"><%= reading.language %><%= reading.register ? ` (${reading.register})` : '' %></span></li>
+  <% }); %>
+</ul>
+<form action="/characters/<%= character.id %>/readings" method="POST" autocomplete="off">
+  <select name="language">
+    <option value="Japanese">Japanese</option>
+    <option value="Mandarin">Mandarin</option>
+    <option value="Cantonese">Cantonese</option>
+    <option value="Korean">Korean</option>
+    <option value="Middle Chinese">Middle Chinese</option>
+  </select>
+  &nbsp;
+  <input type="text" name="sound" placeholder="pronunciation (required)">
+  &nbsp;
+  <input type="number" name="definition" min="1" max="9" placeholder="#">
+  <br>
+  <input type="radio" name="register" value="native"><small>native</small>
+  <input type="radio" name="register" value="Sinoxenic"><small>Sinoxenic</small>
+  <input type="radio" name="register" value="colloquial"><small>colloquial</small>
+  <input type="radio" name="register" value="literary"><small>literary</small>
+  <br>
+  <button type="submit">Add Reading</button>
+</form>
+<br>
 <% if (character.compound) { %>
 <div>Components:</div>
 <ul>
   <% character.components.forEach(component => { %>
-  <li><%= component.glyph %><%= component.form ? `(${component.form})` : '' %> <a href="/characters/<%= character._id %>/components/<%= component._id %>/delete">❎</a><br><span class="detail"><%= component.role %></span></li>
+  <li><%= component.glyph %><span style="color: #777777;"><%= component.form ? `(${component.form})` : '' %></span> <a href="/characters/<%= character._id %>/components/<%= component._id %>/delete"><span style="color: #dddddd;">Ｘ</span></a><br><span class="detail"><%= component.role %></span></li>
   <% }); %>
 </ul>
-<form action="/characters" method="POST" autocomplete="off">
+<form action="/characters/<%= character.id %>/components" method="POST" autocomplete="off">
   <input type="text" name="glyph" maxlength="1" placeholder="full form (required)">
   &nbsp;
   <input type="text" name="form" maxlength="1" placeholder="reduced form (optional)">
@@ -23,31 +57,8 @@
 </form>
 <% }; %>
 <br>
-<div>Strokes: <%= character.strokes %></div>
 <br>
-<% if (character.variants) { %>
-<div>Variant<%= character.variants.length > 1 ? 's' : '' %>: <%= character.variants.split('').join(' / ') %></div>
-<% }; %>
-<br>
-<!-- <% if (character.meanings.length) { %>
-  <% character.meanings.forEach((meaning, idx) => { %>
-  <div>Meaning<%= character.meanings.length > 1 ? ` ${idx+1}` : '' %>: <%= meaning.definition %></div>
-  <ul>
-    <% meaning.readings.forEach(reading => { %>
-    <li><%= reading.sound %><br><span class="detail"><%= reading.language %><%= reading.register ? ` (${reading.register})` : '' %></span></li>
-    <% }); %>
-  </ul>
-  <% }); %>
-<% }; %>
-<br>
-<% if (character.learned) { %>
-  <form action="/characters/<%= character._id %>/unlearn?_method=PUT" method="POST">
-    <button type="submit">LEARNING</button>
-  </form>
-<% } else { %>
-  <form action="/characters/<%= character._id %>/learn?_method=PUT" method="POST">
-    <button type="submit">LEARNED</button>
-  </form>
-<% } %> -->
-
+<form action="/characters/<%= character._id %>/learnToggle?_method=PUT" method="POST">
+  <button type="submit"><%= character.learned ? 'LEARNING' : 'LEARNED' %></button>
+</form>
 <%- include('../partials/footer') %>

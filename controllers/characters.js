@@ -25,9 +25,10 @@ module.exports = {
   show,
   new: newChar,
   create,
-  // delete: deleteChar
+  // delete: deleteChar,
   // edit,
-  // update
+  // update,
+  learnToggle
 };
 
 function index(req, res) {
@@ -52,6 +53,14 @@ function create(req, res) {
   const character = new Character(req.body);
   character.save(err => {
     if (err) return res.redirect('/characters/new');
+    res.redirect(`/characters/${character._id}`);
+  });
+}
+
+function learnToggle(req, res) {
+  console.log("it gets here!!!!!");
+  Character.findById(req.params.id, (err, character) => {
+    character.learned = !character.learned;
     res.redirect(`/characters/${character._id}`);
   });
 }
