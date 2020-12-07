@@ -1,24 +1,35 @@
 <%- include('../partials/header') %>
-<h1><%= title %></h1>
 <h2>(<span <%- character.learned ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= character.learned ? 'LEARNED' : 'LEARNING' %></span>)</h2>
 <div class="char" id="featured" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><%= character.glyph %></div>
 <br>
 <br>
-<% if (character.components.length) { %>
-<div>Component<%= character.components.length > 1 ? 's' : '' %>:</div>
+<% if (character.compound) { %>
+<div>Components:</div>
 <ul>
   <% character.components.forEach(component => { %>
-  <li><%= component.glyph %><%= component.form ? `(${component.form})` : '' %><br><span class="detail"><%= component.role %></span></li>
+  <li><%= component.glyph %><%= component.form ? `(${component.form})` : '' %> <a href="/characters/<%= character._id %>/components/<%= component._id %>/delete">❎</a><br><span class="detail"><%= component.role %></span></li>
   <% }); %>
 </ul>
+<form action="/characters" method="POST" autocomplete="off">
+  <input type="text" name="glyph" maxlength="1" placeholder="full form (required)">
+  &nbsp;
+  <input type="text" name="form" maxlength="1" placeholder="reduced form (optional)">
+  <br>
+  <input type="radio" name="role" value="semantic"><small>semantic</small>
+  <input type="radio" name="role" value="phonetic"><small>phonetic</small>
+  <input type="radio" name="role" value="phono-semantic"><small>phono-semantic</small>
+  <br>
+  <button type="submit">Add Component</button>
+</form>
 <% }; %>
+<br>
 <div>Strokes: <%= character.strokes %></div>
 <br>
 <% if (character.variants) { %>
 <div>Variant<%= character.variants.length > 1 ? 's' : '' %>: <%= character.variants.split('').join(' / ') %></div>
 <% }; %>
 <br>
-<% if (character.meanings.length) { %>
+<!-- <% if (character.meanings.length) { %>
   <% character.meanings.forEach((meaning, idx) => { %>
   <div>Meaning<%= character.meanings.length > 1 ? ` ${idx+1}` : '' %>: <%= meaning.definition %></div>
   <ul>
@@ -37,6 +48,6 @@
   <form action="/characters/<%= character._id %>/learn?_method=PUT" method="POST">
     <button type="submit">LEARNED</button>
   </form>
-<% } %>
+<% } %> -->
 
 <%- include('../partials/footer') %>

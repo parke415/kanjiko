@@ -1,6 +1,5 @@
 <%- include('../partials/header') %>
-  <h1><%= title %></h1>
-  <h2>(<span <%- learnedChars === characters.length ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= learnedChars %>/<%= characters.length %> LEARNED</span>)</h2>
+  <h2>(<span <%- learnedChars === characters.length && learnedChars !== 0 ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= learnedChars %>/<%= characters.length %> LEARNED</span>)</h2>
   <% characters.sort((a, b) => a.strokes - b.strokes); %>
   <% characters.forEach(character => { %>
   <div class="char" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><a href="/characters/<%= character.id %>"><%= character.glyph %></a></div>

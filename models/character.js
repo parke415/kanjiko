@@ -14,13 +14,14 @@ const meaningSchema = new Schema({
 
 const componentSchema = new Schema({
   glyph: {type: String, required: true},
-  role: {type: String, enum: ['Semantic', 'Phonetic', 'Phono-semantic'], required: true},
+  role: {type: String, enum: ['semantic', 'phonetic', 'phono-semantic'], required: true},
   form: {type: String}
 })
 
 const characterSchema = new Schema({
   glyph: {type: String, required: true, unique: true},
   learned: {type: Boolean, default: false},
+  compound: {type: Boolean, required: true},
   components: [componentSchema],
   strokes: {type: Number, min: 1, max: 99, required: true},
   variants: {type: String},

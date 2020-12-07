@@ -1,8 +1,20 @@
 <%- include('../partials/header') %>
-<h2>Creating a new character...</h2>
-
-
-
-
-
+<form action="/characters" method="POST" autocomplete="off">
+  <label>Basic Information:</label>
+  <br>
+  <br>
+  <input type="text" name="glyph" maxlength="1" placeholder="character">
+  <br>
+  <input type="radio" name="compound" value="false"><small>primitive</small>
+  <br>
+  <input type="radio" name="compound" value="true"><small>compound</small>
+  <br>
+  <input type="text" name="strokes" maxlength="2" placeholder="stroke-count">
+  <br>
+  <input type="text" name="variants" placeholder="variant(s)">
+  <br>
+  <br>
+  <button type="submit">Add Character</button>
+</form>
+<br>
 <%- include('../partials/footer') %>
