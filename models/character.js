@@ -23,6 +23,7 @@ const characterSchema = new Schema({
   variants: {type: String},
   meanings: {type: String, required: true},
   readings: [readingSchema],
+  user: {type: Schema.Types.ObjectId, ref: "User"}
 });
 
 module.exports = mongoose.model('Character', characterSchema);

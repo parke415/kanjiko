@@ -30,7 +30,9 @@ function newChar(req, res) {
 }
 
 function create(req, res) {
+  req.body.user = req.user._id;
   const character = new Character(req.body);
+  // character.user = req.user._id;
   character.save(err => {
     if (err) return res.redirect('/characters/new');
     res.redirect(`/characters/${character._id}`);
@@ -38,9 +40,9 @@ function create(req, res) {
 }
 
 function edit(req, res) {
-  res.render('characters/edit', {title: 'Edit Character', character: Character.findById(req.params.id)});
-  // DEBUGGING
-  console.log(Character.findById(req.params.id).glyph);
+  Character.findById(req.params.id, (err, character) => {
+    res.render(`characters/edit`, {title: 'Edit Character', character});
+  });
 }
 
 function update(req, res) {
