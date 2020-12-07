@@ -1,34 +1,14 @@
 const Character = require('../models/character');
 
-// DUMMY DATA
-// const charOne = new Character;
-// charOne.glyph = "渥";
-// charOne.components = [{glyph: '水', role: 'semantic', form: '氵'}, {glyph: '屋', role: 'phonetic'}];
-// charOne.strokes = 12;
-// charOne.learned = false;
-// charOne.variants = '沃沃';
-// const meaning1 = {definition: 'drip', readings: [{language: 'Mandarin', sound: 'wu1', register: 'literary'}, {language: 'Cantonese', sound: 'uk1'}]};
-// const meaning2 = {definition: 'canal', readings: [{language: 'Mandarin', sound: 'wo1', register: 'colloquial'}, {language: 'Cantonese', sound: 'uk1'}]};
-// charOne.meanings = [meaning1, meaning2];
-// const charTwo = new Character;
-// charTwo.glyph = "威";
-// charTwo.strokes = 9;
-// charTwo.learned = true;
-// const charThree = new Character;
-// charThree.glyph = "䢎";
-// charThree.strokes = 7;
-// charThree.learned = true;
-// const charactersTest = [charOne, charTwo, charThree];
-
 module.exports = {
   index,
   show,
   new: newChar,
   create,
-  // delete: deleteChar,
-  // edit,
-  // update,
-  learnToggle
+  edit,
+  update,
+  delete: deleteChar,
+  learnToggle,
 };
 
 function index(req, res) {
@@ -57,7 +37,26 @@ function create(req, res) {
   });
 }
 
+function edit(req, res) {
+  res.render('characters/edit', {title: 'Edit Character', character: Character.findById(req.params.id)});
+  // DEBUGGING
+  console.log(Character.findById(req.params.id).glyph);
+}
+
+function update(req, res) {
+  Character.findByIdAndUpdate(req.params.id, req.body, function(err, oldChar) {
+      res.redirect(`/characters/${req.params.id}`);
+  })
+}
+
+function deleteChar(req, res) {
+  Character.findByIdAndDelete(req.params.id, function(err, deletedChar) {
+      res.redirect('/characters');
+  })
+}
+
 function learnToggle(req, res) {
+  // DEBUGGING
   console.log("it gets here!!!!!");
   Character.findById(req.params.id, (err, character) => {
     character.learned = !character.learned;

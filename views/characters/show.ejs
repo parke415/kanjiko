@@ -26,8 +26,10 @@
   </select>
   &nbsp;
   <input type="text" name="sound" placeholder="pronunciation (required)">
+  <% if (character.meanings.split('; ').length > 1) { %>
   &nbsp;
   <input type="number" name="definition" min="1" max="9" placeholder="#">
+  <% }; %>
   <br>
   <input type="radio" name="register" value="native"><small>native</small>
   <input type="radio" name="register" value="Sinoxenic"><small>Sinoxenic</small>
@@ -57,8 +59,14 @@
 </form>
 <% }; %>
 <br>
+<a href="/characters/<%= character._id %>/edit">Edit Character</a>
+<br>
 <br>
 <form action="/characters/<%= character._id %>/learnToggle?_method=PUT" method="POST">
   <button type="submit"><%= character.learned ? 'LEARNING' : 'LEARNED' %></button>
+</form>
+<br>
+<form action="/characters/<%= character._id %>?_method=DELETE" method="POST">
+  <button type="submit">DELETE</button>
 </form>
 <%- include('../partials/footer') %>

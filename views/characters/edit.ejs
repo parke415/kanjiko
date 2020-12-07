@@ -1,0 +1,33 @@
+<%- include('../partials/header') %>
+<form action="/characters/<%= character._id %>?_method=PUT" method="POST" autocomplete="off">
+  <label>Character:</label>
+  <br>
+  <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)" value="<%= character.glyph %>">
+  <br>
+  <br>
+  <label>Structure:</label>
+  <br>
+  <input type="radio" name="compound" value="false"><small>primitive</small>
+  <br>
+  <input type="radio" name="compound" value="true"><small>compound</small>
+  <br>
+  <br>
+  <label>Strokes:</label>
+  <br>
+  <input type="number" name="strokes" min="1" max="99" placeholder="#" value="<%= character.strokes %>">
+  <br>
+  <br>
+  <label>Variant(s):</label>
+  <br>
+  <input type="text" name="variants" placeholder="(Unihan-compatible)" value="<%= character.variants %>">
+  <br>
+  <br>
+  <label>Definition(s):</label>
+  <br>
+  <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30" value="<%= character.meanings %>"></textarea>
+  <br>
+  <br>
+  <button type="submit">Update Character</button>
+</form>
+<br>
+<%- include('../partials/footer') %>
