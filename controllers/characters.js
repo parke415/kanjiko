@@ -12,7 +12,7 @@ module.exports = {
 };
 
 function index(req, res) {
-  Character.find({}, (err, characters) => {
+  Character.find({user: req.user._id}, (err, characters) => {
     let learnedChars = 0;
     characters.forEach(character => {if (character.learned) learnedChars++});
     res.render('characters/index', {title: 'Character List', characters, learnedChars});
@@ -32,7 +32,6 @@ function newChar(req, res) {
 function create(req, res) {
   req.body.user = req.user._id;
   const character = new Character(req.body);
-  // character.user = req.user._id;
   character.save(err => {
     if (err) return res.redirect('/characters/new');
     res.redirect(`/characters/${character._id}`);
@@ -62,6 +61,6 @@ function learnToggle(req, res) {
   console.log("it gets here!!!!!");
   Character.findById(req.params.id, (err, character) => {
     character.learned = !character.learned;
-    res.redirect(`/characters/${character._id}`);
+    character.save(err => {res.redirect(`/characters`)});
   });
 }

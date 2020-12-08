@@ -10,6 +10,6 @@ router.post('/', isLoggedIn, charactersCtrl.create);
 router.get('/:id/edit', isLoggedIn, charactersCtrl.edit);
 router.put('/:id', isLoggedIn, charactersCtrl.update);
 router.delete('/:id', isLoggedIn, charactersCtrl.delete);
-router.put('/:id', isLoggedIn, charactersCtrl.learnToggle);
+router.put('/:id/learnToggle', isLoggedIn, charactersCtrl.learnToggle);
 
 module.exports = router;

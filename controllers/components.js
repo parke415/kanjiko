@@ -15,19 +15,19 @@ function create(req, res) {
   });
 }
 
-function deleteComp(req, res) {
-  Character.findOne({'components._id': req.params.componentId}, (err, character) => {
-    if (!character.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
-    character.components.remove(req.params.componentId);
-    character.save(err => res.redirect(`/characters/${character._id}`));
-  });
-}
-
-// function deleteComp(req, res, next) {
-//   Character.findOne({'components._id': req.params.id}).then(character => {
-//     const component = character.components.id(req.params.id);
+// function deleteComp(req, res) {
+//   Character.findOne({'components._id': req.params.componentId}, (err, character) => {
 //     if (!character.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
-//     component.remove();
-//     character.save().then(() => res.redirect(`/characters/${character._id}`)).catch(err => next(err));
+//     character.components.remove(req.params.componentId);
+//     character.save(err => res.redirect(`/characters/${character._id}`));
 //   });
 // }
+
+function deleteComp(req, res) {
+  Character.findById(req.params.id, (err, character) => {
+    character.components = [];
+    character.save(err => {
+      res.redirect(`/characters/${character._id}`);
+    })
+  });
+}

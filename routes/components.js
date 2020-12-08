@@ -4,6 +4,6 @@ const componentsCtrl = require('../controllers/components');
 const isLoggedIn = require('../config/auth');
 
 router.post('/characters/:id/components', isLoggedIn, componentsCtrl.create);
-router.get('/components/:componentId/delete', isLoggedIn, componentsCtrl.delete);
+router.delete('/characters/:id/deleteComponents', isLoggedIn, componentsCtrl.delete);
 
 module.exports = router;

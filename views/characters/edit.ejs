@@ -7,9 +7,9 @@
   <br>
   <label>Structure:</label>
   <br>
-  <input type="radio" name="compound" value="false"><small>primitive</small>
+  <input type="radio" name="compound" value="false" <%- character.compound ? '' : 'checked' %>><small>primitive</small>
   <br>
-  <input type="radio" name="compound" value="true"><small>compound</small>
+  <input type="radio" name="compound" value="true" <%- character.compound ? 'checked' : '' %>><small>compound</small>
   <br>
   <br>
   <label>Strokes:</label>
@@ -30,4 +30,5 @@
   <button type="submit">Update Character</button>
 </form>
 <br>
+<a href="/characters/<%= character._id %>">Cancel Edit</a>
 <%- include('../partials/footer') %>

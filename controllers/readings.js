@@ -16,18 +16,10 @@ function create(req, res) {
 }
 
 function deletePron(req, res) {
-  Character.findOne({'readings._id': req.params.id}, (err, character) => {
-    if (!component.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
-    character.readings.remove(req.params.id);
-    character.save(err => res.redirect(`/characters/${character._id}`));
+  Character.findById(req.params.id, (err, character) => {
+    character.readings = [];
+    character.save(err => {
+      res.redirect(`/characters/${character._id}`);
+    })
   });
 }
-
-// function deletePron(req, res, next) {
-//   Character.findOne({'readings._id': req.params.id}).then(character => {
-//     const reading = character.readings.id(req.params.id);
-//     if (!component.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
-//     reading.remove();
-//     character.save().then(() => res.redirect(`/characters/${character._id}`)).catch(err => next(err));
-//   });
-// }
