@@ -5,29 +5,27 @@ body {
 
 .entry {
   text-align: center;
-  padding: 50px;
+}
+
+#title {
+  font-size: 24px;
 }
 
 #cover {
-  font: 150px "Times";
-}
-
-.log {
-  font-size: 32px;
-  color: blue;
+  font: 64px "Times";
+  border: 5px solid black;
+  background-color: #dddddd;
+  display: inline-block;
+  padding: 0px 10px 10px;
 }
 
 .log img {
-  width: 5%;
+  width: 64px;
 }
 
-nav, h1, h2, label {
-  text-align: center; 
+nav, h1, label {
+  text-align: center;
   font-size: 18px;
-}
-
-h1 {
-  font-size: 24px;
 }
 
 .char {
@@ -35,8 +33,9 @@ h1 {
   font: 100px "Times";
   border: 5px solid;
   border-radius: 10%;
-  background-color: #eeeeee;
-  padding: 0 5px 5px 5px;
+  border-color: #bbbbbb;
+  background-color: #dddddd;
+  padding: 0 5px 5px;
   margin: 3px;
 }
 
@@ -49,4 +48,10 @@ h1 {
   font-size: 12px;
   color: #777777;
   font-weight: bold;
+}
+
+.fill {
+  border: 1px solid black;
+  display: inline-block;
+  padding: 10px;
 }

@@ -1,8 +1,10 @@
 <%- include('../partials/header') %>
+<h1><%= title %></h1>
+<br>
 <form action="/characters/<%= character._id %>?_method=PUT" method="POST" autocomplete="off">
   <label>Character:</label>
   <br>
-  <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)" value="<%= character.glyph %>">
+  <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)" value="<%= character.glyph %>" required>
   <br>
   <br>
   <label>Structure:</label>
@@ -14,7 +16,7 @@
   <br>
   <label>Strokes:</label>
   <br>
-  <input type="number" name="strokes" min="1" max="99" placeholder="#" value="<%= character.strokes %>">
+  <input type="number" name="strokes" min="1" max="99" placeholder="#" value="<%= character.strokes %>" required>
   <br>
   <br>
   <label>Variant(s):</label>
@@ -24,7 +26,7 @@
   <br>
   <label>Definition(s):</label>
   <br>
-  <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30" value="<%= character.meanings %>"><%= character.meanings %></textarea>
+  <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30" value="<%= character.meanings %>" required><%= character.meanings %></textarea>
   <br>
   <br>
   <button type="submit">Update Character</button>

@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
-<h2>(<span <%- character.learned ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= character.learned ? 'LEARNED' : 'LEARNING' %></span>)</h2>
-<div class="char" id="featured" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><%= character.glyph %></div>
+<h1><%= title %><br>(<span <%- character.learned ? 'style="color: #00bbbb;"' : 'style="color: #bb0000;"' %>><%= character.learned ? 'LEARNED' : 'LEARNING' %></span>)</h1>
+<br>
+<div class="char" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><%= character.glyph %></div>
 <br>
 <br>
 <div>Strokes: <%= character.strokes %></div>
@@ -13,22 +14,22 @@
 <div>Readings:</div>
 <ul>
   <% character.readings.forEach(reading => { %>
-  <li><%= reading.sound %><span class="detail"><%= reading.definition ? ` (#${reading.definition})` : '' %><br><%= reading.language %><%= reading.register ? ` (${reading.register})` : '' %></span></li>
+  <li><%= reading.sound.split('・')[0] %><span style="color: #bbbbbb"><%= reading.sound.split('・')[1] %></span> <span class="detail"><%= reading.definition ? ` (#${reading.definition})` : '' %><br><%= reading.language %><%= reading.register ? ` (${reading.register})` : '' %></span></li>
   <% }); %>
 </ul>
-<form action="/characters/<%= character.id %>/readings" method="POST" autocomplete="off">
+<form class="fill" action="/characters/<%= character.id %>/readings" method="POST" autocomplete="off">
   <select name="language">
-    <option value="Japanese">Japanese</option>
     <option value="Mandarin">Mandarin</option>
     <option value="Cantonese">Cantonese</option>
+    <option value="Japanese" selected>Japanese</option>
     <option value="Korean">Korean</option>
     <option value="Middle Chinese">Middle Chinese</option>
   </select>
   &nbsp;
-  <input type="text" name="sound" placeholder="pronunciation (required)">
+  <input type="text" name="sound" placeholder="pronunciation (required)" required>
   <% if (character.meanings.split('; ').length > 1) { %>
   &nbsp;
-  <input type="number" name="definition" min="1" max="9" placeholder="#">
+  <input type="number" name="definition" min="1" max="<%= character.meanings.split('; ').length %>" placeholder="#">
   <% }; %>
   <br>
   <input type="radio" name="register" value="native"><small>native</small>
@@ -39,44 +40,46 @@
   <button type="submit">Add Reading</button>
 </form>
 <% if (character.readings.length > 0) { %>
-  <form action="/characters/<%= character.id %>/deleteReadings?_method=DELETE" method="POST" autocomplete="off">
-    <button type="submit"><%= character.readings.length > 1 ? 'Clear Readings' : 'Remove Reading' %></button>
-  </form>
+<form style="display: inline-block;" action="/characters/<%= character.id %>/deleteReadings?_method=DELETE" method="POST" autocomplete="off">
+  <button type="submit"><%= character.readings.length > 1 ? 'Clear All' : 'Remove One' %></button>
+</form>
 <% }; %>
+<br>
 <br>
 <% if (character.compound) { %>
 <div>Components:</div>
 <ul>
   <% character.components.forEach(component => { %>
-  <li><%= component.glyph %><span style="color: #777777;"><%= component.form ? `(${component.form})` : '' %></span><br><span class="detail"><%= component.role %></span></li>
+  <li><%= component.glyph %><span style="color: #bbbbbb;"><%= component.form ? ` ${component.form}` : '' %></span><br><span class="detail"><%= component.role %></span></li>
   <% }); %>
 </ul>
-<form action="/characters/<%= character.id %>/components" method="POST" autocomplete="off">
-  <input type="text" name="glyph" maxlength="1" placeholder="full form (required)">
+<form class="fill" action="/characters/<%= character.id %>/components" method="POST" autocomplete="off">
+  <input type="text" name="glyph" maxlength="1" placeholder="full form (required)" required>
   &nbsp;
   <input type="text" name="form" maxlength="1" placeholder="reduced form (optional)">
   <br>
-  <input type="radio" name="role" value="semantic"><small>semantic</small>
+  <input type="radio" name="role" value="semantic" checked><small>semantic</small>
   <input type="radio" name="role" value="phonetic"><small>phonetic</small>
   <input type="radio" name="role" value="phono-semantic"><small>phono-semantic</small>
   <br>
   <button type="submit">Add Component</button>
 </form>
   <% if (character.components.length > 0) { %>
-  <form action="/characters/<%= character.id %>/deleteComponents?_method=DELETE" method="POST" autocomplete="off">
-    <button type="submit"><%= character.components.length > 1 ? 'Clear Components' : 'Remove Component' %></button>
+  <form style="display: inline-block;" action="/characters/<%= character.id %>/deleteComponents?_method=DELETE" method="POST" autocomplete="off">
+    <button type="submit"><%= character.components.length > 1 ? 'Clear All' : 'Remove One' %></button>
   </form>
   <% }; %>
+<br>
 <br>
 <% }; %>
 <a href="/characters/<%= character._id %>/edit">Edit Character</a>
 <br>
 <br>
-<form action="/characters/<%= character._id %>/learnToggle?_method=PUT" method="POST">
-  <button type="submit"><%= character.learned ? 'LEARNING' : 'LEARNED' %></button>
+<form action="/characters/<%= character._id %>?_method=DELETE" method="POST">
+  <button type="submit">Delete Character</button>
 </form>
 <br>
-<form action="/characters/<%= character._id %>?_method=DELETE" method="POST">
-  <button type="submit">DELETE</button>
+<form action="/characters/<%= character._id %>/learnToggle?_method=PUT" method="POST">
+  <button type="submit"><%= character.learned ? 'LEARNING' : 'LEARNED' %></button>
 </form>
 <%- include('../partials/footer') %>

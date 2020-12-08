@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const readingSchema = new Schema({
-  language: {type: String, enum: ['Japanese', 'Mandarin', 'Cantonese', 'Korean', 'Middle Chinese'], required: true},
-  register: {type: String, enum: ['native', 'Sinoxenic', 'colloquial', 'literary']},
+  language: {type: String, enum: ['Mandarin', 'Cantonese', 'Japanese', 'Korean', 'Middle Chinese'], required: true},
+  register: {type: String, enum: ['colloquial', 'literary', 'native', 'Sinoxenic']},
   sound: {type: String, required: true},
   definition: {type: Number, min: 1, max: 9}
 });

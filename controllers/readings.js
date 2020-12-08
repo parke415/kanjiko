@@ -18,8 +18,6 @@ function create(req, res) {
 function deletePron(req, res) {
   Character.findById(req.params.id, (err, character) => {
     character.readings = [];
-    character.save(err => {
-      res.redirect(`/characters/${character._id}`);
-    })
+    character.save(err => res.redirect(`/characters/${character._id}`));
   });
 }

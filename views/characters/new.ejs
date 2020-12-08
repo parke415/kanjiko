@@ -1,20 +1,22 @@
 <%- include('../partials/header') %>
+<h1><%= title %></h1>
+<br>
 <form action="/characters" method="POST" autocomplete="off">
   <label>Character:</label>
   <br>
-  <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)">
+  <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)" required>
   <br>
   <br>
   <label>Structure:</label>
   <br>
-  <input type="radio" name="compound" value="false"><small>primitive</small>
+  <input type="radio" name="compound" value="false" required><small>primitive</small>
   <br>
-  <input type="radio" name="compound" value="true"><small>compound</small>
+  <input type="radio" name="compound" value="true" required><small>compound</small>
   <br>
   <br>
   <label>Strokes:</label>
   <br>
-  <input type="number" name="strokes" min="1" max="99" placeholder="#">
+  <input type="number" name="strokes" min="1" max="99" placeholder="#" required>
   <br>
   <br>
   <label>Variant(s):</label>
@@ -24,7 +26,7 @@
   <br>
   <label>Definition(s):</label>
   <br>
-  <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30"></textarea>
+  <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30" required></textarea>
   <br>
   <br>
   <button type="submit">Add Character</button>
