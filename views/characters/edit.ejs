@@ -6,6 +6,8 @@
   <br>
   <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)" value="<%= character.glyph %>" required>
   <br>
+  <small class="required">*required</small>
+  <br>
   <br>
   <label>Structure:</label>
   <br>
@@ -13,10 +15,14 @@
   <br>
   <input type="radio" name="compound" value="true" <%- character.compound ? 'checked' : '' %>><small>compound</small>
   <br>
+  <small class="required">*required</small>
+  <br>
   <br>
   <label>Strokes:</label>
   <br>
   <input type="number" name="strokes" min="1" max="99" placeholder="#" value="<%= character.strokes %>" required>
+  <br>
+  <small class="required">*required</small>
   <br>
   <br>
   <label>Variant(s):</label>
@@ -28,9 +34,12 @@
   <br>
   <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30" value="<%= character.meanings %>" required><%= character.meanings %></textarea>
   <br>
+  <small class="required">*required</small>
+  <br>
   <br>
   <button type="submit">Update Character</button>
 </form>
+<br>
 <br>
 <a href="/characters/<%= character._id %>">Cancel Edit</a>
 <%- include('../partials/footer') %>

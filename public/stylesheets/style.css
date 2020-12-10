@@ -40,8 +40,17 @@ nav, h1, label {
   font-weight: bold;
 }
 
+form {
+  display: inline-block;
+}
+
 .fill {
   border: 1px solid black;
-  display: inline-block;
   padding: 10px;
+}
+
+.required {
+  font-size: 12px;
+  color: #bb3333;
+  font-style: oblique;
 }

@@ -4,6 +4,7 @@
 <div class="char" <%- character.learned ? 'style="border-color: #337777; background-color: #77bbbb;"' : 'style="border-color: #773333; background-color: #bb7777;"' %>><%= character.glyph %></div>
 <br>
 <br>
+<hr>
 <div>Strokes: <%= character.strokes %></div>
 <% if (character.variants) { %>
 <div>Variant<%= character.variants.length > 1 ? 's' : '' %>: <%= character.variants.split('').join(' / ') %></div>
@@ -39,11 +40,11 @@
   <br>
   <button type="submit">Add Reading</button>
 </form>
-<% if (character.readings.length > 0) { %>
-<form style="display: inline-block;" action="/characters/<%= character.id %>/deleteReadings?_method=DELETE" method="POST" autocomplete="off">
-  <button type="submit"><%= character.readings.length > 1 ? 'Clear All' : 'Remove One' %></button>
-</form>
-<% }; %>
+  <% if (character.readings.length) { %>
+  <form action="/characters/<%= character.id %>/deleteReadings?_method=DELETE" method="POST" autocomplete="off">
+    <button type="submit"><%= character.readings.length > 1 ? 'Clear All' : 'Remove One' %></button>
+  </form>
+  <% }; %>
 <br>
 <br>
 <% if (character.compound) { %>
@@ -64,22 +65,23 @@
   <br>
   <button type="submit">Add Component</button>
 </form>
-  <% if (character.components.length > 0) { %>
-  <form style="display: inline-block;" action="/characters/<%= character.id %>/deleteComponents?_method=DELETE" method="POST" autocomplete="off">
+  <% if (character.components.length) { %>
+  <form action="/characters/<%= character.id %>/deleteComponents?_method=DELETE" method="POST" autocomplete="off">
     <button type="submit"><%= character.components.length > 1 ? 'Clear All' : 'Remove One' %></button>
   </form>
   <% }; %>
 <br>
 <br>
 <% }; %>
-<a href="/characters/<%= character._id %>/edit">Edit Character</a>
-<br>
-<br>
-<form action="/characters/<%= character._id %>?_method=DELETE" method="POST">
-  <button type="submit">Delete Character</button>
-</form>
-<br>
 <form action="/characters/<%= character._id %>/learnToggle?_method=PUT" method="POST">
   <button type="submit"><%= character.learned ? 'LEARNING' : 'LEARNED' %></button>
+</form>
+<br>
+<br>
+<hr>
+<a href="/characters/<%= character._id %>/edit">Edit Character</a>
+&nbsp;
+<form action="/characters/<%= character._id %>?_method=DELETE" method="POST">
+  <button type="submit">Delete Character</button>
 </form>
 <%- include('../partials/footer') %>

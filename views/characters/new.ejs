@@ -6,6 +6,8 @@
   <br>
   <input type="text" name="glyph" maxlength="1" placeholder="(Unihan-compatible)" required>
   <br>
+  <small class="required">*required</small>
+  <br>
   <br>
   <label>Structure:</label>
   <br>
@@ -13,10 +15,14 @@
   <br>
   <input type="radio" name="compound" value="true" required><small>compound</small>
   <br>
+  <small class="required">*required</small>
+  <br>
   <br>
   <label>Strokes:</label>
   <br>
   <input type="number" name="strokes" min="1" max="99" placeholder="#" required>
+  <br>
+  <small class="required">*required</small>
   <br>
   <br>
   <label>Variant(s):</label>
@@ -27,6 +33,8 @@
   <label>Definition(s):</label>
   <br>
   <textarea name="meanings" placeholder="separate sound-dependent meanings with ';' (followed by a space)" rows="5" cols="30" required></textarea>
+  <br>
+  <small class="required">*required</small>
   <br>
   <br>
   <button type="submit">Add Character</button>

@@ -15,7 +15,7 @@ const componentSchema = new Schema({
 })
 
 const characterSchema = new Schema({
-  glyph: {type: String, required: true, unique: true},
+  glyph: {type: String, required: true},
   learned: {type: Boolean, default: false},
   compound: {type: Boolean, required: true},
   components: [componentSchema],

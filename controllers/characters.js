@@ -20,7 +20,7 @@ function index(req, res) {
 }
 
 function show(req, res) {
-  Character.findById(req.params.id, (err, character) => res.render(`characters/show`, {title: 'Character Details', character}));
+  Character.findById(req.params.id, (err, character) => res.render(`characters/show`, {title: 'Character Details', character, user: req.user._id}));
 }
 
 function newChar(req, res) {
@@ -30,26 +30,44 @@ function newChar(req, res) {
 function create(req, res) {
   req.body.user = req.user._id;
   const character = new Character(req.body);
-  character.save(err => {
-    if (err) return res.redirect(`/characters/new`);
-    res.redirect(`/characters/${character._id}`);
+  Character.find({user: req.user._id, glyph: character.glyph}, (err, duplicate) => {
+    if (err || duplicate.length) return res.redirect(`/characters/new`);
+    character.save(err => {
+      if (err) return res.redirect(`/characters/new`);
+      res.redirect(`/characters/${character._id}`);
+    });
   });
 }
 
 function edit(req, res) {
-  Character.findById(req.params.id, (err, character) => res.render(`characters/edit`, {title: 'Edit Character', character}));
+  Character.findById(req.params.id, (err, character) => {
+    if (!character.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
+    res.render(`characters/edit`, {title: 'Edit Character', character});
+  });
 }
 
 function update(req, res) {
-  Character.findByIdAndUpdate(req.params.id, req.body, (err, oldChar) => res.redirect(`/characters/${req.params.id}`));
+  Character.findById(req.params.id, (err, character) => {
+    if (!character.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
+    Object.assign(character, req.body);
+    character.save(err => {
+      if (err) return res.redirect(`/characters/new`);
+      res.redirect(`/characters/${character._id}`);
+    });
+  });
 }
 
 function deleteChar(req, res) {
-  Character.findByIdAndDelete(req.params.id, (err, deletedChar) => res.redirect(`/characters`));
+  Character.findById(req.params.id, (err, character) => {
+    if (!character.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
+    character.remove();
+    res.redirect(`/characters`);
+  });
 }
 
 function learnToggle(req, res) {
   Character.findById(req.params.id, (err, character) => {
+    if (!character.user.equals(req.user._id)) return res.redirect(`/characters/${character._id}`);
     character.learned = !character.learned;
     character.save(err => {
       if (character.learned) {
