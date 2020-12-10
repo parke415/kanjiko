@@ -1,6 +1,8 @@
 # **Kanjiko (漢字庫)**
 > "Gotta Learn 'Em All!" - Andrew Parke
 
+*Kanjiko* is an app that makes it fun and convenient to collect characters as you learn them—great for students of Japanese, Korean, and any flavor of Chinese!
+
 ## *Getting Started:*
 * Log in with your Google account below the home banner.
 * Click on **[+]** in the character list (sorted by total stroke count) to add your first character.
@@ -28,5 +30,6 @@
 ## *In-App Screenshots:*
 ![alt text](https://i.imgur.com/Nib4mcs.png)
 ![alt text](https://i.imgur.com/7TqA3D9.png)
-![alt text](https://i.imgur.com/MzncQvG.png)
-![alt text](https://i.imgur.com/bVlfdai.png)
+![alt text](https://i.imgur.com/sWQkrlL.png)
+![alt text](https://i.imgur.com/Bwm521M.png)
+![alt text](https://i.imgur.com/PJEjoMp.png)
